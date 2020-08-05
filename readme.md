@@ -1,0 +1,38 @@
+# Moodle Config Sync
+
+Synchronize configuration between instances, skipping certain values which would not be changed.
+
+Steps (replace `$MOODLE_DIR` with the directory that Moodle's code is in, note that this path may differ between your Moodle instances):
+
+1. obtain a JSON copy of the configuration file using Moodle's included cfg.php command, `ssh moodle; sudo php $MOODLE_DIR/admin/cli/cfg.php --json > ~/config.json` then `scp moodle:~/config.json .`
+1. read through the configuration properties and create a JSON array in a file named "skip.json" of properties you _don't_ want synchronized
+    + for instance, all timestamp values, server-specific information, and database settings
+    + it may be helpful to do step 1 on the dev server too, then compare the two files e.g. `git diff config.json dev.config.json`
+    + there's an example included here
+1. copy these files to a dev server `rsync -avz . moodle-dev:$MOODLE_DIR/admin/cca_cli/cfg-sync`
+1. run the script on the server, writing its output to a log file `cd $MOODLE_DIR; sudo php admin/cca_cli/cfg-sync/core.php >> /var/log/moodle/core-cfg-sync.log`
+
+For plugins the process is similar:
+
+1. obtain JSON configuration files for _all_ the plugins
+    + try using "mk-plugin-cfg-files.sh" on the server to iterate through a list of plugins, you have to write them into the script
+    + can download them all at once with `rsync moodle:~/*.json plugins/`
+1. create one single plugins/skip.json file of nested arrays of skip lists for each plugin, the "version" properties for each plugin will be automatically skipped
+1. run plugins script, `cd $MOODLE_DIR; sudo php admin/cca_cli/cfg-sync/plugins.php >> /var/log/moodle/plugins-cfg-sync.log`
+
+example plugins/skip.json:
+```json
+{
+    "mod_attendance": ["search_activity_indexingend", "search_activity_indexingstart"],
+    "mod_zoom": ["last_call_made_at"]
+}
+```
+
+Should we be using [Custom site defaults](https://docs.moodle.org/39/en/Administration_via_command_line#Custom_site_defaults) for this instead? This is a file local/defaults.php which specifies default settings like so:
+
+```php
+$defaults['pluginname']['settingname'] = 'settingvalue'; // for plugins
+$defaults['moodle']['settingname'] = 'settingvalue';     // for core settings
+```
+
+as I see it, this poses a problem because we usually don't _know_ the default we want, we either want to copy something from another server or leave it as it is. It is easier to generate a JSON configuration file with cfg.php than it would be to create a local/defaults.php file.

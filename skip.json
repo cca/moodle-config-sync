@@ -1,0 +1,52 @@
+[
+    "siteidentifier",
+    "siteadmins",
+    "themerev",
+    "jsrev",
+    "templaterev",
+    "langrev",
+    "version",
+
+    "calendar_exportsalt",
+
+    "additionalhtmlhead",
+    "additionalhtmlfooter",
+
+    "debug",
+    "debugdisplay",
+    "debugstringids",
+    "debugpageinfo",
+
+    "release",
+    "branch",
+    "localcachedirpurged",
+    "scheduledtaskreset",
+    "allversionshash",
+
+    "airnotifieraccesskey",
+    "chat_serverhost",
+
+    "fileslastcleanup",
+    "scorm_updatetimelast",
+    "reposecretkey",
+    "statslastdaily",
+    "statslastweekly",
+    "statslastmonthly",
+    "dbtype",
+    "dblibrary",
+    "dbhost",
+    "dbname",
+    "dbuser",
+    "dbpass",
+
+    "wwwroot",
+    "dataroot",
+    "dirroot",
+    "libdir",
+    "tempdir",
+    "backuptempdir",
+    "cachedir",
+    "localcachedir",
+    "langotherroot",
+    "langlocalroot"
+]

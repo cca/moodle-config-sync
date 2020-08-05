@@ -1,0 +1,18 @@
+{
+    "mod_attendance": [
+        "search_activity_docsignored",
+        "search_activity_docsprocessed",
+        "search_activity_indexingend",
+        "search_activity_indexingstart",
+        "search_activity_lastindexrun"
+    ],
+    "mod_zoom": [
+        "last_call_made_at",
+        "search_activity_docsignored",
+        "search_activity_docsprocessed",
+        "search_activity_indexingend",
+        "search_activity_indexingstart",
+        "search_activity_lastindexrun",
+        "search_activity_recordsprocessed"
+    ]
+}

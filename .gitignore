@@ -1,0 +1,4 @@
+plugins/*.json
+!plugins/skip.json
+config.json
+dev.config.json
