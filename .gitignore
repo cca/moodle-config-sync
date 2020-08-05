@@ -1,4 +1,6 @@
 plugins/*.json
 !plugins/skip.json
+logs/*.log
+!logs/.keep
 config.json
 dev.config.json

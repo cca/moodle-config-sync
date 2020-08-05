@@ -14,7 +14,7 @@ define('CLI_SCRIPT', true);
 
 require('/opt/moodle38/config.php');
 // https://github.com/moodle/moodle/blob/MOODLE_38_STABLE/lib/clilib.php
-require_once($CFG->libdir.'/clilib.php');
+require_once($CFG->libdir . '/clilib.php');
 // core APIs, needed for `set_config`
 require_once($CFG->libdir . '/moodlelib.php');
 
@@ -27,7 +27,7 @@ $pluginfiles = array_diff(scandir($plugindir), array('..', '.', 'skip.json'));
 $skip = json_decode(file_get_contents($plugindir . DIRECTORY_SEPARATOR . 'skip.json'), true);
 
 cli_write(date('Y-m-d H:i:s', time()));
-cli_writeln(" Synchronizing settings for plugins...");
+cli_writeln(" Synchronizing settings for plugins...\n");
 
 foreach ($pluginfiles as $pluginfile) {
     $plugin_config = json_decode(file_get_contents($plugindir . DIRECTORY_SEPARATOR . $pluginfile), true);
@@ -45,4 +45,7 @@ foreach ($pluginfiles as $pluginfile) {
             set_config($key, $value);
         }
     }
+
+    // space between each plugin's section
+    cli_writeln("");
 }

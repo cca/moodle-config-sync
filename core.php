@@ -14,7 +14,7 @@ define('CLI_SCRIPT', true);
 
 require('/opt/moodle38/config.php');
 // https://github.com/moodle/moodle/blob/MOODLE_38_STABLE/lib/clilib.php
-require_once($CFG->libdir.'/clilib.php');
+require_once($CFG->libdir . '/clilib.php');
 // core APIs, needed for `set_config`
 require_once($CFG->libdir . '/moodlelib.php');
 
@@ -23,7 +23,7 @@ $config = json_decode(file_get_contents('config.json'), true);
 $skip = json_decode(file_get_contents('skip.json'), true);
 
 cli_write(date('Y-m-d H:i:s', time()));
-cli_writeln(" Synchronizing settings for Moodle core...");
+cli_writeln(" Synchronizing settings for Moodle core...\n");
 
 foreach ($config as $key => $value) {
     if (in_array($key, $skip)) {
