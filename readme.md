@@ -1,6 +1,6 @@
 # Moodle Config Sync
 
-Synchronize configuration between instances, skipping certain values which would not be changed.
+Synchronize configuration between instances, skipping certain values which should not be changed.
 
 ## Core
 
@@ -41,4 +41,4 @@ $defaults['pluginname']['settingname'] = 'settingvalue'; // for plugins
 $defaults['moodle']['settingname'] = 'settingvalue';     // for core settings
 ```
 
-as I see it, this poses a problem because we usually don't _know_ the default we want, we either want to copy something from another server or leave it as it is. It is easier to generate a JSON configuration file with cfg.php than it would be to create a local/defaults.php file.
+as I see it, this poses a problem because we usually don't _know_ the default we want, we either want to copy something from another server or leave it as it is. It is easier to generate a JSON configuration file with cfg.php than it would be to create a local/defaults.php file. This is also only used during upgrades while we may want to sync settings in between upgrades.
