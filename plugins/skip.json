@@ -1,4 +1,18 @@
 {
+    "auth_cas": [
+        "hostname",
+        "logout_return_url"
+    ],
+    "enrol_database": [
+        "localcategoryfield",
+        "newcoursecategory"
+    ],
+    "enrol_manual": [
+        "expirynotifylast"
+    ],
+    "enrol_self": [
+        "expirynotifylast"
+    ],
     "mod_attendance": [
         "search_activity_docsignored",
         "search_activity_docsprocessed",

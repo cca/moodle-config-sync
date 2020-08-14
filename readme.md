@@ -20,7 +20,7 @@ For plugins the process is similar:
 
 1. obtain JSON configuration files for _all_ the plugins
     + try using "mk-plugin-cfg-files.sh" on the server to iterate through a list of plugins, you have to write a list of plugins into the script
-    + can download them all at once with `rsync moodle:~/*.json plugins/` (note: will also download any config.json file you have left in your home folder)
+    + can download them all at once with `rsync -avz moodle:'~/*.json' plugins/` (note: will also download any config.json file you have left in your home folder)
 1. create a single plugins/skip.json file of nested arrays of skip lists for each plugin, the "version" property for each plugin will be automatically skipped
 1. run the plugins script, `cd $MOODLE_DIR; sudo php admin/cca_cli/cfg-sync/plugins.php >> /var/log/moodle/plugins-cfg-sync.log`
 
@@ -32,7 +32,9 @@ example plugins/skip.json:
 }
 ```
 
-## Custom site defaults
+Moodle defines much vital functionality, such as authentication and enrollment, in plugins. A core configuration sync is not be enough to replicate an instance's settings.
+
+## A note on "Custom site defaults"
 
 Should we be using [Custom site defaults](https://docs.moodle.org/39/en/Administration_via_command_line#Custom_site_defaults) for this instead? This is a file local/defaults.php which specifies default settings like so:
 
