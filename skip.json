@@ -11,6 +11,7 @@
 
     "additionalhtmlhead",
     "additionalhtmlfooter",
+    "additionalhtmltopofbody",
 
     "debug",
     "debugdisplay",
