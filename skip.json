@@ -49,5 +49,6 @@
     "cachedir",
     "localcachedir",
     "langotherroot",
-    "langlocalroot"
+    "langlocalroot",
+    "smtphosts"
 ]
