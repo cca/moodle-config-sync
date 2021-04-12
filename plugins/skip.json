@@ -21,6 +21,7 @@
         "search_activity_lastindexrun"
     ],
     "mod_zoom": [
+        "calls_left",
         "last_call_made_at",
         "search_activity_docsignored",
         "search_activity_docsprocessed",
