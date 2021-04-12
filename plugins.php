@@ -1,6 +1,6 @@
 <?php
 
-// Synchronize configuration settings from a given JSON file.
+// Synchronize plugin configuration settings from specially-named JSON files.
 
 /**
  *
