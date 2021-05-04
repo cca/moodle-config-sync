@@ -3,6 +3,9 @@
         "hostname",
         "logout_return_url"
     ],
+    "backup": [
+        "backup_encryptkey"
+    ]
     "enrol_database": [
         "localcategoryfield",
         "newcoursecategory"
