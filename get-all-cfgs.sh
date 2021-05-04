@@ -3,8 +3,10 @@
 # your user's home directory
 mkdir ~/configs
 
+# you can make the json files formatted nicely by piping through jq but you will
+# need to install it
 get_config () {
-    sudo -u www-data php admin/cli/cfg.php --component=$1 --json > ~/configs/$1.json
+    sudo -u www-data php admin/cli/cfg.php --component=$1 --json | jq . > ~/configs/$1.json
 }
 
 get_config 'core'
