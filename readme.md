@@ -33,7 +33,7 @@ example plugins/skip.json:
 }
 ```
 
-Moodle defines much vital functionality, such as authentication and enrollment, in plugins. A core configuration sync is not be enough to replicate an instance's settings.
+Moodle defines much vital functionality, such as authentication and enrollment, in plugins. A core configuration sync is not be enough to replicate an instance's settings. You can see a compete list of plugin names with `SELECT DISTINCT plugin FROM {config_plugins}` but there are many (>400) and some are inconsequential.
 
 ## A note on "Custom site defaults"
 
