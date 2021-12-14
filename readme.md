@@ -37,7 +37,7 @@ Moodle defines much vital functionality, such as authentication and enrollment, 
 
 ## A note on "Custom site defaults"
 
-Should we be using [Custom site defaults](https://docs.moodle.org/39/en/Administration_via_command_line#Custom_site_defaults) for this instead? This is a file local/defaults.php which specifies default settings like so:
+Should we be using [Custom site defaults](https://docs.moodle.org/310/en/Administration_via_command_line#Custom_site_defaults) for this instead? This is a file local/defaults.php which specifies default settings like so:
 
 ```php
 $defaults['pluginname']['settingname'] = 'settingvalue'; // for plugins

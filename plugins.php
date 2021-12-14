@@ -6,13 +6,13 @@
  *
  * @package    core
  * @subpackage cli
- * @copyright  2020 CCA (https://cca.edu)
+ * @copyright  2021 CCA (https://cca.edu)
  * @license    https://opensource.org/licenses/ECL-2.0 ECL 2.0
  */
 
 define('CLI_SCRIPT', true);
 
-require('/opt/moodle38/config.php');
+require('/bitnami/moodle/config.php');
 // https://github.com/moodle/moodle/blob/MOODLE_38_STABLE/lib/clilib.php
 require_once($CFG->libdir . '/clilib.php');
 // core APIs, needed for `set_config`
