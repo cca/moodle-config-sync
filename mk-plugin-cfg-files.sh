@@ -6,5 +6,5 @@ PLUGINS=("assign" "auth_db" "auth_manual" "backup" "enrol_manual" "enrol_databas
 mkdir -p /bitnami/moodledata/configs
 
 for PLUGIN in ${PLUGINS[@]}; do
-    sudo php /bitnami/moodle/admin/cli/cfg.php --component=${PLUGIN} --json > /bitnami/moodledata/configs/${PLUGIN}.json
+    php /bitnami/moodle/admin/cli/cfg.php --component=${PLUGIN} --json > /bitnami/moodledata/configs/${PLUGIN}.json
 done

@@ -6,9 +6,10 @@ mkdir -p /bitnami/moodledata/configs
 # you can make the json files formatted nicely by piping through jq but you will
 # need to install it
 get_config () {
-    sudo -u www-data php admin/cli/cfg.php --component=$1 --json | jq . > /bitnami/moodledata/configs/$1.json
+    php /bitnami/moodle/admin/cli/cfg.php --component=$1 --json > /bitnami/moodledata/configs/$1.json
 }
 
+cd /bitnami/moodle
 get_config 'core'
 
 # full list of plugins with their own settings

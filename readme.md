@@ -26,6 +26,7 @@ For plugins the process is similar:
 1. run the plugins script, `cd $MOODLE_DIR; sudo php admin/cca_cli/cfg-sync/plugins.php >> /var/log/moodle/plugins-cfg-sync.log`
 
 example plugins/skip.json:
+
 ```json
 {
     "mod_attendance": ["search_activity_indexingend", "search_activity_indexingstart"],
@@ -33,7 +34,7 @@ example plugins/skip.json:
 }
 ```
 
-Moodle defines much vital functionality, such as authentication and enrollment, in plugins. A core configuration sync is not be enough to replicate an instance's settings. You can see a compete list of plugin names with `SELECT DISTINCT plugin FROM {config_plugins}` but there are many (>400) and some are inconsequential.
+Moodle defines much vital functionality, such as authentication and enrollment, in plugins. A core configuration sync is not be enough to replicate an instance's settings. You can see a compete list of plugin names with `SELECT DISTINCT plugin FROM {config_plugins}` but there are over four hundred of them and some are inconsequential.
 
 ## A note on "Custom site defaults"
 
