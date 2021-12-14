@@ -1,31 +1,23 @@
 # Moodle Config Sync
 
-Synchronize configuration between instances, skipping certain values which should not be changed.
+Synchronize configuration between Moodle instances, skipping certain values which should not be changed.
 
-## Core
+Our Moodle setup uses the [Bitnami Moodle](https://bitnami.com/stack/moodle) container in a kubernetes cluster. You can see the GitLab [CCA Moodle](https://gitlab.com/california-college-of-the-arts/cca-moodle) project for more details. For the purposes of this project, this means we can assume all our Moodle directories are /bitnami/moodle and we have `moosh` installed on our containers.
 
-Replace `$MOODLE_DIR` with the directory that Moodle's code is in, note that this path may differ between your Moodle instances. Also assumes ssh aliases of `moodle` and `moodle-dev` for the two instances.
+## Download JSON configuration files
 
-1. obtain a JSON copy of the configuration file using Moodle's included cfg.php command, `ssh moodle; sudo php $MOODLE_DIR/admin/cli/cfg.php --json > ~/config.json` then `scp moodle:~/config.json .`
-1. read through the configuration properties and create a JSON array in a file named "skip.json" of properties you _don't_ want synchronized
-    + for instance, all timestamp values, server-specific information, and database settings
-    + it may be helpful to do step 1 on the dev server too, format the JSON files so they have a property on each line, then compare the two files e.g. `git diff config.json dev.config.json`
-    + there's an example included here
-1. copy these files to a dev server `rsync -avz . moodle-dev:$MOODLE_DIR/admin/cca_cli/cfg-sync`
-1. run the script on the server, writing output to a log file `cd $MOODLE_DIR; sudo php admin/cca_cli/cfg-sync/core.php >> /var/log/moodle/core-cfg-sync.log`
+Run `./get-all-cfgs.sh` to download all configuration files. Requires `jq` simply to format the JSON.
 
-## Additional Plugins
+ 1. Download `kubectl` and configure it to work with our cloud projects
+ 1. Set an `NS` namespace environment variable like `moodle-staging` (note: not a real namespace)
+ 1. Run `./get-all-cfgs.sh`
+ 1. Config files are downloaded to the "data" directory, you may want to move them into a subdirectory
 
-For plugins the process is similar:
+You can repeat this process for multiple Moodle instances by changing the cloud context and namespace each time.
 
-1. obtain JSON configuration files for _all_ the plugins
-    + try using "mk-plugin-cfg-files.sh" on the server to iterate through a list of plugins, you have to write a list of plugins into the script
-    + can download them all at once with `rsync -avz moodle:'~/*.json' plugins/` (note: will also download any config.json file you have left in your home folder)
-    + create a single plugins/skip.json file of nested arrays of skip lists for each plugin (the "version" property for each plugin will be automatically skipped)
-1. copy these files to a dev server `rsync -avz . moodle-dev:$MOODLE_DIR/admin/cca_cli/cfg-sync`
-1. run the plugins script, `cd $MOODLE_DIR; sudo php admin/cca_cli/cfg-sync/plugins.php >> /var/log/moodle/plugins-cfg-sync.log`
+## Applying configurations
 
-example plugins/skip.json:
+Use an array of setting names in skip.json to define core settings you _do not_ want to sync between instances, and then a second skip.json file for all plugins in the "plugins" directory. Example plugins/skip.json:
 
 ```json
 {
@@ -35,6 +27,8 @@ example plugins/skip.json:
 ```
 
 Moodle defines much vital functionality, such as authentication and enrollment, in plugins. A core configuration sync is not be enough to replicate an instance's settings. You can see a compete list of plugin names with `SELECT DISTINCT plugin FROM {config_plugins}` but there are over four hundred of them and some are inconsequential.
+
+**TBD** how to apply the modified configuration on another instance. Basically, sync the JSON config and skip files, then run the core.php and plugins.php scripts from this project on the container.
 
 ## A note on "Custom site defaults"
 
