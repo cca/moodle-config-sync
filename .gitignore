@@ -4,3 +4,4 @@ logs/*.log
 !logs/.keep
 config.json
 dev.config.json
+data/*
