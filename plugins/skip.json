@@ -1,11 +1,22 @@
 {
     "auth_cas": [
         "hostname",
+        "host_url",
         "logout_return_url"
     ],
     "backup": [
         "backup_encryptkey"
-    ]
+    ],
+    "block_panopto": [
+        "application_key1",
+        "server_name1",
+        "automatic_operation_target_server",
+        "instance_name"
+    ],
+    "core_admin": [
+        "logo",
+        "logocompact"
+    ],
     "enrol_database": [
         "localcategoryfield",
         "newcoursecategory"
@@ -16,14 +27,15 @@
     "enrol_self": [
         "expirynotifylast"
     ],
-    "mod_attendance": [
+    "mod_scheduler": [
         "search_activity_docsignored",
         "search_activity_docsprocessed",
         "search_activity_indexingend",
         "search_activity_indexingstart",
-        "search_activity_lastindexrun"
+        "search_activity_lastindexrun",
+        "search_activity_recordsprocessed"
     ],
-    "mod_zoom": [
+    "zoom": [
         "calls_left",
         "last_call_made_at",
         "search_activity_docsignored",

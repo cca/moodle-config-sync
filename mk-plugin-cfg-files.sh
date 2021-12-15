@@ -1,7 +1,36 @@
 #!/usr/bin/env bash
 # cull settings from a select set of plugins
 # see also: get-all-cfgs.sh
-PLUGINS=("assign" "auth_db" "auth_manual" "backup" "enrol_manual" "enrol_database" "enrol_meta" "enrol_self" "enrol_guest" "enrol_cohort" "auth_cas" "block_attendance" "block_point_view" "format_grid" "local_course_template" "mod_attendance" "mod_zoom" "report_customsql" "restore")
+PLUGINS=(
+    "assign"
+    "assignfeedback_comments"
+    "assignfeedback_editpdf"
+    "assignfeedback_file"
+    "assignfeedback_offline"
+    "assignsubmission_comments"
+    "assignsubmission_file"
+    "assignsubmission_onlinetext"
+    "attendance"
+    "auth_cas"
+    "auth_db"
+    "backup"
+    "block_myoverview"
+    "block_panopto"
+    "block_sharing_cart"
+    "core_admin"
+    "editor_atto"
+    "enrol_database"
+    "enrol_guest"
+    "enrol_manual"
+    "enrol_meta"
+    "format_grid"
+    "format_topcoll"
+    "local_course_template"
+    "report_customsql"
+    "restore"
+    "scheduler"
+    "zoom"
+)
 
 mkdir -p data
 POD=$(kubectl get pods -n ${NS} | grep 'moodle-' | cut -d ' ' -f 1)

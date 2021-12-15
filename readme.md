@@ -21,12 +21,14 @@ Use an array of setting names in skip.json to define core settings you _do not_ 
 
 ```json
 {
-    "mod_attendance": ["search_activity_indexingend", "search_activity_indexingstart"],
-    "mod_zoom": ["last_call_made_at"]
+    "attendance": ["search_activity_indexingend", "search_activity_indexingstart"],
+    "zoom": ["last_call_made_at"]
 }
 ```
 
 Moodle defines much vital functionality, such as authentication and enrollment, in plugins. A core configuration sync is not be enough to replicate an instance's settings. You can see a compete list of plugin names with `SELECT DISTINCT plugin FROM {config_plugins}` but there are over four hundred of them and some are inconsequential.
+
+Note that some plugins appear twice, like "zoom" and "mod_zoom". It seems like the name without the "mod" prefix is the one with all the meaningful settings.
 
 **TBD** how to apply the modified configuration on another instance. Basically, sync the JSON config and skip files, then run the core.php and plugins.php scripts from this project on the container.
 
