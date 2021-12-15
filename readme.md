@@ -34,9 +34,11 @@ Finally, sync the JSON config, skip files, and PHP scripts to the destination (u
 
 We cannot sync the settings for an OAuth 2 Service (typically used for Google integrations) so we have to set that up manually at /admin/tool/oauth2/issuers.php
 
-We intentionally do not synchronize the Boost Theme settings /admin/settings.php?section=themesettingboost and Additional HTML /admin/settings.php?section=additionalhtml so they can differ (e.g. having a warning label on non-productive servers).
+File repository order and activation /admin/repository.php are not represented in the typical settings so synchronizing those needs to be done manually.
 
-We also do not sync the Moodle Mobile App settings since we don't want app users accidentally signing into dev.
+We do not synchronize the Boost Theme settings /admin/settings.php?section=themesettingboost and Additional HTML /admin/settings.php?section=additionalhtml so they can differ (e.g. having a warning label on non-production servers).
+
+We do not sync the Moodle Mobile App settings since we don't want app users accidentally signing into dev.
 
 ## A note on "Custom site defaults"
 
