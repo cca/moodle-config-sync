@@ -4,20 +4,22 @@ Synchronize configuration between Moodle instances, skipping certain values whic
 
 Our Moodle setup uses the [Bitnami Moodle](https://bitnami.com/stack/moodle) container in a kubernetes cluster. You can see the GitLab [CCA Moodle](https://gitlab.com/california-college-of-the-arts/cca-moodle) project for more details. For the purposes of this project, this means we can assume all our Moodle directories are /bitnami/moodle and we have `moosh` installed on our containers.
 
-## Download JSON configuration files
+## Downloading JSON configuration files
 
-Run `./get-all-cfgs.sh` to download all configuration files. Requires `jq` simply to format the JSON.
+Moodle defines much vital functionality, such as authentication and enrollment, in plugins. A core configuration sync is not enough to replicate an instance's settings. Use `SELECT DISTINCT plugin FROM {config_plugins}` to see a full list, but there are over four hundred of them and some are inconsequential. A number have only a useless `version` field. Some plugins appear twice, like "zoom" and "mod_zoom". It seems like the name without the "mod" prefix is the one with meaningful settings.
+
+Run `./get-all-cfgs.sh` to download _all_ configuration files from an instance. Requires `jq` to format the JSON.
 
  1. Download `kubectl` and configure it to work with our cloud projects
  1. Set an `NS` namespace environment variable like `moodle-staging` (note: not a real namespace)
  1. Run `./get-all-cfgs.sh`
- 1. Config files are downloaded to the "data" directory, you may want to move them into a subdirectory
+ 1. Config files are downloaded to the "data" directory, there is one "core.json" and one for each of the many Moodle plugins, we may want to move them into a subdirectory
 
-You can repeat this process for multiple Moodle instances by changing the cloud context and namespace each time.
+We can repeat this process for multiple Moodle instances by changing the cloud context and namespace each time. It's helpful to `diff` the JSON from two instances to determine what's worth synchronizing. Once we've identified which plugins to sync, write their names into the array at the top of "mk-plugin-cfg-files.sh", then run that script to download them from the origin (usually production) instance.
 
 ## Applying configurations
 
-Use an array of setting names in skip.json to define core settings you _do not_ want to sync between instances, and then a second skip.json file for all plugins in the "plugins" directory. Example plugins/skip.json:
+Use an array of setting names in skip.json to define core settings you _do not_ want to sync between instances, and then a second skip.json file for all the plugins we downloaded to the "plugins" directory. Example plugins/skip.json:
 
 ```json
 {
@@ -26,11 +28,15 @@ Use an array of setting names in skip.json to define core settings you _do not_ 
 }
 ```
 
-Moodle defines much vital functionality, such as authentication and enrollment, in plugins. A core configuration sync is not be enough to replicate an instance's settings. You can see a compete list of plugin names with `SELECT DISTINCT plugin FROM {config_plugins}` but there are over four hundred of them and some are inconsequential.
+Finally, sync the JSON config, skip files, and PHP scripts to the destination (usually dev) server. Then run the core.php and plugins.php scripts on the container.
 
-Note that some plugins appear twice, like "zoom" and "mod_zoom". It seems like the name without the "mod" prefix is the one with all the meaningful settings.
+## Additional synchronization
 
-**TBD** how to apply the modified configuration on another instance. Basically, sync the JSON config and skip files, then run the core.php and plugins.php scripts from this project on the container.
+We cannot sync the settings for an OAuth 2 Service (typically used for Google integrations) so we have to set that up manually at /admin/tool/oauth2/issuers.php
+
+We intentionally do not synchronize the Boost Theme settings /admin/settings.php?section=themesettingboost and Additional HTML /admin/settings.php?section=additionalhtml so they can differ (e.g. having a warning label on non-productive servers).
+
+We also do not sync the Moodle Mobile App settings since we don't want app users accidentally signing into dev.
 
 ## A note on "Custom site defaults"
 

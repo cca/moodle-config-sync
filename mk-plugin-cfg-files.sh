@@ -23,12 +23,33 @@ PLUGINS=(
     "enrol_guest"
     "enrol_manual"
     "enrol_meta"
+    "fileconverter_googledrive"
     "format_grid"
     "format_topcoll"
+    "googledocs"
+    "label"
     "local_course_template"
+    "media_videojs"
+    "message"
+    "mod_lesson"
+    "mod_scheduler"
+    "moodlecourse"
+    "page"
+    "qtype_multichoice"
+    "question"
+    "quiz"
     "report_customsql"
+    "resource"
     "restore"
-    "scheduler"
+    "scorm"
+    "tool_dataprivacy"
+    "tool_log"
+    "tool_recyclebin"
+    "url"
+    "workshop"
+    "workshopallocation_random"
+    "workshopeval_best"
+    "workshopform_numerrors"
     "zoom"
 )
 
@@ -36,5 +57,6 @@ mkdir -p data
 POD=$(kubectl get pods -n ${NS} | grep 'moodle-' | cut -d ' ' -f 1)
 
 for PLUGIN in ${PLUGINS[@]}; do
-    kubectl exec -n ${NS} ${POD} -it -- php /bitnami/moodle/admin/cli/cfg.php --component=$1 --json | jq > data/$1.json
+    echo "Getting configuration for plugin ${PLUGIN} on pod ${POD} in namespace ${NS}"
+    kubectl exec -n ${NS} ${POD} -it -- php /bitnami/moodle/admin/cli/cfg.php --component=${PLUGIN} --json | jq > plugins/${PLUGIN}.json
 done

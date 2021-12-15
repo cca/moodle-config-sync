@@ -27,6 +27,13 @@
     "enrol_self": [
         "expirynotifylast"
     ],
+    "mod_lesson": [
+        "search_activity_docsignored",
+        "search_activity_docsprocessed",
+        "search_activity_indexingend",
+        "search_activity_indexingstart",
+        "search_activity_recordsprocessed"
+    ],
     "mod_scheduler": [
         "search_activity_docsignored",
         "search_activity_docsprocessed",
