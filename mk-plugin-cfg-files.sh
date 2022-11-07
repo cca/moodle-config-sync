@@ -54,9 +54,9 @@ PLUGINS=(
 )
 
 mkdir -p data
-POD=$(kubectl get pods -n ${NS} | grep 'moodle-' | cut -d ' ' -f 1)
+POD=$(kubectl get pods -n "${NS}" | grep 'moodle-' | cut -d ' ' -f 1)
 
-for PLUGIN in ${PLUGINS[@]}; do
+for PLUGIN in "${PLUGINS[@]}"; do
     echo "Getting configuration for plugin ${PLUGIN} on pod ${POD} in namespace ${NS}"
-    kubectl exec -n ${NS} ${POD} -it -- php /bitnami/moodle/admin/cli/cfg.php --component=${PLUGIN} --json | jq > plugins/${PLUGIN}.json
+    kubectl exec -n "${NS}" "${POD}" -it -- php /bitnami/moodle/admin/cli/cfg.php --component="${PLUGIN}" --json | jq > "plugins/${PLUGIN}.json"
 done
