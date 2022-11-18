@@ -50,5 +50,14 @@
     "localcachedir",
     "langotherroot",
     "langlocalroot",
-    "smtphosts"
+
+    "smtphosts",
+    "smtpsecure",
+    "smtpauthtype",
+    "smtpuser",
+    "smtppass",
+    "smtpmaxbulk",
+    "divertallemailsto",
+    "divertallemailsexcept",
+    "emaildkimselector"
 ]
