@@ -4,6 +4,10 @@ Synchronize configuration between Moodle instances, skipping certain values whic
 
 Our Moodle setup uses the [Bitnami Moodle](https://bitnami.com/stack/moodle) container in a kubernetes cluster. You can see the GitLab [CCA Moodle](https://gitlab.com/california-college-of-the-arts/cca-moodle) project for more details. For the purposes of this project, this means we can assume all our Moodle directories are /bitnami/moodle and we have `moosh` installed on our containers.
 
+## DEPRECATED! Use Site Admin Presets
+
+Moodle 4.0's [Site Admin Presets](https://docs.moodle.org/400/en/Site_admin_presets) feature eliminates the need for this project. Use it instead.
+
 ## Downloading JSON configuration files
 
 Moodle defines much vital functionality, such as authentication and enrollment, in plugins. A core configuration sync is not enough to replicate an instance's settings. Use `SELECT DISTINCT plugin FROM {config_plugins}` to see a full list, but there are over four hundred of them and some are inconsequential. A number have only a useless `version` field. Some plugins appear twice, like "zoom" and "mod_zoom". It seems like the name without the "mod" prefix is the one with meaningful settings.
