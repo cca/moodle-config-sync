@@ -1,12 +1,12 @@
-# Moodle Config Sync
+# DEPRECATED! Use Site Admin Presets
+
+Moodle 4.0's [Site Admin Presets](https://docs.moodle.org/400/en/Site_admin_presets) feature eliminates the need for this project. Use it instead.
+
+## Moodle Config Sync
 
 Synchronize configuration between Moodle instances, skipping certain values which should not be changed.
 
 Our Moodle setup uses the [Bitnami Moodle](https://bitnami.com/stack/moodle) container in a kubernetes cluster. You can see the GitLab [CCA Moodle](https://gitlab.com/california-college-of-the-arts/cca-moodle) project for more details. For the purposes of this project, this means we can assume all our Moodle directories are /bitnami/moodle and we have `moosh` installed on our containers.
-
-## DEPRECATED! Use Site Admin Presets
-
-Moodle 4.0's [Site Admin Presets](https://docs.moodle.org/400/en/Site_admin_presets) feature eliminates the need for this project. Use it instead.
 
 ## Downloading JSON configuration files
 
